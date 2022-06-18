@@ -63,7 +63,26 @@ public:
 		}
 
 	}
+	// 블록이 아래로 내려갈 수 있나
+	bool canGoDown() {
+		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
+			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
+				if (userBlock[i][k] == 1 && i + blockY + 1 >= GRID_HEIGHT)
+					return false;
+				if(userBlock[i][k] == 1 && gameGridData[i + blockY + 1])
 
+			}
+		}
+	}
+
+	// 블록이 왼쪽으로 갈 수 있나
+	bool canGoLeft() {
+
+	}
+	// 블록이 오른쪽으로 갈 수 있나
+	bool canGoRight() {
+
+	}
 	// 실제 게임 데이터를 화면에 출력할 수 있는 데이터로 변환
 	void makeDisplayData() {
 		for (int i = 0; i < GRID_HEIGHT; i++) {

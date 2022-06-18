@@ -1,2 +1,2 @@
 ﻿  Source.cpp
-  Tetris.vcxproj -> C:\Users\201710911\source\repos\C-program\Tetris\x64\Debug\Tetris.exe
+C:\Users\201710911\source\repos\C-program\Tetris\Tetris\Header.h(73,4): error C2059: syntax error: '}'
