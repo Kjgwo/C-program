@@ -63,7 +63,7 @@ public:
 		}
 
 	}
-	// 블록이 아래로 내려갈 수 있나
+	// 블록이 아래로 내려갈 수 있나 ( 확인만 )
 	bool canGoDown() {
 		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
 			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
