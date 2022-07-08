@@ -7,6 +7,7 @@ int main() {
 	float prev = (float)clock() / CLOCKS_PER_SEC;
 	Display* display = new Display();
 	GameEngine* gameEngine = new GameEngine();
+	gameEngine->init();
 	showConsoleCursor(false);
 
 	while (true) {
@@ -18,21 +19,40 @@ int main() {
 
 
 		bool left = keyState('a');
+		bool right = keyState('d');
+		bool down = keyState('s');
+		bool rotate = keyState('w');
+
 		if (left) {
 			// 왼쪽으로 이동
+			gameEngine->next(dt, 'a');
+		}
+		else if (right) {
+			// 오른쪽으로 이동
+			gameEngine->next(dt, 'd');
+		}
+		else if (down) {
+			// 아래로 이동
+			gameEngine->next(dt, 's');
+		}
+		else if (rotate) {
+			gameEngine->rotate();
 		}
 		else {
 			// 그냥 떨어지게
+			gameEngine->next(dt, 0);
 		}
 
-		gameEngine->next(dt, 0);
 
 		gameEngine->makeDisplayData();
 
 		// 화면 출력
 		display->draw();
 		// 게임 상태 판별
-		bool right = keyState('d');
+		if (gameEngine->state == GameEngine::GameState::GAMEOVER) {
+			break;
+		}
+		
 	}
 	return 0;
 }

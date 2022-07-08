@@ -1,2 +1,3 @@
 ﻿  Source.cpp
-C:\Users\201710911\source\repos\C-program\Tetris\Tetris\Header.h(73,4): error C2059: syntax error: '}'
+C:\Users\201710911\source\repos\C-program\Tetris\Tetris\Header.h(209,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Tetris.vcxproj -> C:\Users\201710911\source\repos\C-program\Tetris\x64\Debug\Tetris.exe
