@@ -10,7 +10,7 @@ using namespace std;
 
 #define GRID_WIDTH 7
 #define GRID_HEIGHT 10
-#define USERBBLOCK_SIZE 3
+#define USERBLOCK_SIZE 3
 
 
 int displayData[GRID_HEIGHT][GRID_WIDTH] = { 0, };
@@ -34,9 +34,9 @@ public:
 	GameState state = GameState::PLAYING;
 
 	int gameGridData[GRID_HEIGHT][GRID_WIDTH] = { 0, };
-	int userBlock[USERBBLOCK_SIZE][USERBBLOCK_SIZE] = { 0, };
+	int userBlock[USERBLOCK_SIZE][USERBLOCK_SIZE] = { 0, };
 
-	int userBlockVarious[3][USERBBLOCK_SIZE][USERBBLOCK_SIZE] = {
+	int userBlockVarious[3][USERBLOCK_SIZE][USERBLOCK_SIZE] = {
 	{
 		{0, 1, 0},
 		{0, 1, 0},
@@ -101,8 +101,8 @@ public:
 	}
 	// 블록이 아래로 내려갈 수 있나 ( 확인만 )
 	bool canGoDown() {
-		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
-			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
+		for (int i = 0; i < USERBLOCK_SIZE; i++) {
+			for (int k = 0; k < USERBLOCK_SIZE; k++) {
 				if (userBlock[i][k] == 1 && i + blockY + 1 >= GRID_HEIGHT)
 					return false;
 				if (userBlock[i][k] == 1 && gameGridData[i + blockY + 1][k + blockX] == 1) {
@@ -116,8 +116,8 @@ public:
 
 	// 블록이 왼쪽으로 갈 수 있나 확인
 	bool canGoLeft() {
-		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
-			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
+		for (int i = 0; i < USERBLOCK_SIZE; i++) {
+			for (int k = 0; k < USERBLOCK_SIZE; k++) {
 				if (userBlock[i][k] == 1 && k + blockX - 1 < 0) {
 					return false;
 				}
@@ -132,8 +132,8 @@ public:
 	}
 	// 블록이 오른쪽으로 갈 수 있나 확인
 	bool canGoRight() {
-		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
-			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
+		for (int i = 0; i < USERBLOCK_SIZE; i++) {
+			for (int k = 0; k < USERBLOCK_SIZE; k++) {
 				if (userBlock[i][k] == 1 && k + blockX + 1 > GRID_WIDTH - 1) {
 					return false;
 				}
@@ -172,8 +172,8 @@ public:
 
 	// userblock를 gameGrid에 전사하는 함수
 	void trans() {
-		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
-			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
+		for (int i = 0; i < USERBLOCK_SIZE; i++) {
+			for (int k = 0; k < USERBLOCK_SIZE; k++) {
 				gameGridData[i + blockY][k + blockX] = userBlock[i][k] == 1 ? userBlock[i][k] : gameGridData[i + blockY][k + blockX];
 			}
 		}
@@ -191,8 +191,8 @@ public:
 	}
 
 	bool gameOverDecision() {
-		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
-			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
+		for (int i = 0; i < USERBLOCK_SIZE; i++) {
+			for (int k = 0; k < USERBLOCK_SIZE; k++) {
 				if (userBlock[i][k] == 1 && gameGridData[i + blockY][k + blockX] == 1) {
 					return true;
 				}
@@ -210,22 +210,53 @@ public:
 
 		// 랜덤으로 블록 생성
 		int various = rand() % 3;
-		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
-			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
+		for (int i = 0; i < USERBLOCK_SIZE; i++) {
+			for (int k = 0; k < USERBLOCK_SIZE; k++) {
 				userBlock[i][k] = userBlockVarious[various][i][k];
 			}
 		}
 
 	}
+	bool canRotate() {
+		for (int i = 0; i < USERBLOCK_SIZE; i++) {
+			for (int k = 0; k < USERBLOCK_SIZE; k++) {
+				if (userBlock[i][k] == 1) {
+					int __x = blockX + USERBLOCK_SIZE - 1 - i; // 회전 시 x 좌표
+					int __y = blockY + k; // 회전 시 y 좌표
+					// 가로 범위 체크
+					if (__x > GRID_WIDTH - 1 || __x < 0) {
+						return false;
+					}
+					// 세로 범위 체크
+					if (__y > GRID_HEIGHT - 1 || __y < 0) {
+						return false;
+					}
+					// 다른 블록 체크
+					if (gameGridData[__y][__x] == 1) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
 
 	void rotate() {
-		// 회전 구현
-		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
-			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
-				userBlock[i][k] 
+		if (canRotate()) {
+			int temp[USERBLOCK_SIZE][USERBLOCK_SIZE] = { 0, };
+			for (int i = 0; i < USERBLOCK_SIZE; i++) {
+				for (int k = 0; k < USERBLOCK_SIZE; k++) {
+					temp[i][k] = userBlock[i][k];
+				}
+			}
+			for (int i = 0; i < USERBLOCK_SIZE; i++) {
+				for (int k = 0; k < USERBLOCK_SIZE; k++) {
+					userBlock[k][USERBLOCK_SIZE - 1 - i] = temp[i][k];
+				}
 			}
 		}
 	}
+
 	// 실제 게임 데이터를 화면에 출력할 수 있는 데이터로 변환
 	void makeDisplayData() {
 		for (int i = 0; i < GRID_HEIGHT; i++) {
@@ -234,8 +265,8 @@ public:
 			}
 		}
 
-		for (int i = 0; i < USERBBLOCK_SIZE; i++) {
-			for (int k = 0; k < USERBBLOCK_SIZE; k++) {
+		for (int i = 0; i < USERBLOCK_SIZE; i++) {
+			for (int k = 0; k < USERBLOCK_SIZE; k++) {
 				if (i + blockY < 0 || i + blockY > GRID_HEIGHT) {
 					// DO NOTHING
 				}
