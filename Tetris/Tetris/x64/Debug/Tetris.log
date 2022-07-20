@@ -1,3 +1,7 @@
-﻿  Source.cpp
-C:\Users\201710911\source\repos\C-program\Tetris\Tetris\Header.h(209,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  Display.cpp
+  GameEngine.cpp
+C:\Users\201710911\source\repos\C-program\Tetris\Tetris\GameEngine.cpp(143,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Source.cpp
+  TetrisHelper.cpp
+  Generating Code...
   Tetris.vcxproj -> C:\Users\201710911\source\repos\C-program\Tetris\x64\Debug\Tetris.exe
