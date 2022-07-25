@@ -13,6 +13,8 @@ int main() {
 	gameEngine->init();
 	showConsoleCursor(false);
 
+
+
 	while (true) {
 		float curr = (float)clock() / CLOCKS_PER_SEC;
 		float dt = curr - prev;
