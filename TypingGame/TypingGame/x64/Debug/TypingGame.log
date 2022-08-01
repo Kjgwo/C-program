@@ -1,0 +1,7 @@
+﻿  TypingSystem.cpp
+C:\Users\201710911\source\repos\C-program\TypingGame\TypingGame\TypingSystem.cpp(132,109): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\201710911\source\repos\C-program\TypingGame\TypingGame\TypingSystem.cpp(147,76): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+C:\Users\201710911\source\repos\C-program\TypingGame\TypingGame\main.cpp(5,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
+  TypingGame.vcxproj -> C:\Users\201710911\source\repos\C-program\TypingGame\x64\Debug\TypingGame.exe
